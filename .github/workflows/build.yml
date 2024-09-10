@@ -67,7 +67,7 @@ jobs:
         env:
           SEMVER_VERSION: ${{ steps.semver.outputs.SEMVER_VERSION }}
           IMAGE_NAME: ${{ steps.semver.outputs.IMAGE_NAME }}
-        run: docker pull ${{ env.IMAGE_NAME }} --all-tags
+        run: docker push "${{ env.IMAGE_NAME }}:dev" --all-tags
 
       - name: Output Runner Image Details as a Job Summary
         env:
