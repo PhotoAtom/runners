@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-docker compose up --scale runners=3
+docker compose up -d --scale runners=3
