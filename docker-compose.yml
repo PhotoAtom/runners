@@ -1,0 +1,13 @@
+services:
+  runners:
+    image: vhkhatri/runner:latest
+    env_file:
+      - runner.env
+    networks:
+      - k3d_network
+
+networks:
+  k3d_network:
+    name: k3d-photoatom
+    external: true
+
