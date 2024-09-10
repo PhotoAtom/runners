@@ -109,7 +109,7 @@ jobs:
           MAJOR_VERSION="${{ vars.MAIN_RELEASE }}"
 
           # Minor version is fetched from the issue number this branch is created for.
-          MINOR_VERSION=$(echo "${{ github.head_ref }}" | cut -d/ -f4)
+          MINOR_VERSION=$(echo "${{ github.head_ref }}" | cut -d/ -f2)
 
           # Patch version is the run number of the pipeline
           PATCH_VERSION=$(echo "${{ github.event.pull_request.number }}")
@@ -174,7 +174,7 @@ jobs:
           MAJOR_VERSION="${{ vars.MAIN_RELEASE }}"
 
           # Minor version is fetched from the issue number this branch is created for.
-          MINOR_VERSION=$(echo "${{ github.head_ref }}" | cut -d/ -f4)
+          MINOR_VERSION=$(echo "${{ github.head_ref }}" | cut -d/ -f2)
 
           # Patch version is the run number of the pipeline
           PATCH_VERSION="0"
@@ -213,7 +213,7 @@ jobs:
           IMAGE_NAME: ${{ steps.semver.outputs.IMAGE_NAME }}
         run: |
           echo "# Runner Image Details" >> $GITHUB_STEP_SUMMARY
-          echo "**Image Name**: `${{ env.IMAGE_NAME }}`" >> $GITHUB_STEP_SUMMARY
-          echo "**Tags**: `${{ env.SEMVER_VERSION }}`, `latest`" >> $GITHUB_STEP_SUMMARY
-          echo "**Fully Qualified Image Name**: `${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}`" >> $GITHUB_STEP_SUMMARY
+          echo "**Image Name**: ~${{ env.IMAGE_NAME }}~" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags**: ~${{ env.SEMVER_VERSION }}~, `latest`" >> $GITHUB_STEP_SUMMARY
+          echo "**Fully Qualified Image Name**: ~${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}~" >> $GITHUB_STEP_SUMMARY
 
