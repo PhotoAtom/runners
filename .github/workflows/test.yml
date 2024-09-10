@@ -1,0 +1,26 @@
+name: Test Communication with Self Hosted K3d Cluster
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_communication:
+    name: Testing Communication with Self Hosted K3d Cluster
+    runs-on: [self-hosted, linux, photoatom]
+    env:
+      KUBECONFIG: '/tmp/k3d/config.yml'
+      KUBECONFIG_FOLDER: '/tmp/k3d'
+    steps:
+      - name: Create and save KubeConfig file
+        run: |
+
+          # Create the folder for KubeConfig file
+          mkdir -p ${{ env.KUBECONFIG_FOLDER }}
+
+          # Save the KubeConfig file
+          echo '${{ secrets.KUBECONFIG }}' >> ${{ env.KUBECONFIG }}
+
+      - name: Run KubeCTL Commands to check communication with the local K3d cluster
+        run: |
+          kubectl get ns
+
