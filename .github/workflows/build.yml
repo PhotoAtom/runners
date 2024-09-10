@@ -42,10 +42,10 @@ jobs:
           PATCH_VERSION=$(echo "${{ github.run_number }}")
 
           # Form the final development version
-          SEMVER_VERSION="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION-DEV"
+          export SEMVER_VERSION="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION-DEV"
 
           # Form the image name
-          IMAGE_NAME="${{ vars.DOCKER_USERNAME }}/runner"
+          export IMAGE_NAME="${{ vars.DOCKER_USERNAME }}/runner"
 
           # Export the version and the image name
           export "SEMVER_VERSION=$SEMVER_VERSION" >> $GITHUB_OUTPUT
