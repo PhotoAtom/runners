@@ -23,8 +23,5 @@ jobs:
 
       - name: Run KubeCTL Commands to check communication with the local K3d cluster
         run: |
-          ls -la ${{ env.KUBECONFIG_FOLDER }}
-          cat ${{ env.KUBECONFIG }}
-
-          kubectl get ns --kubeconfig="${{ env.KUBECONFIG }}"
+          kubectl get ns
 
