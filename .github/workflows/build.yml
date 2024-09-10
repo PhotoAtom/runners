@@ -5,7 +5,15 @@ on:
     branches:
       - feature/**
       - bug/**
+    paths:
+      - Dockerfile
+      - docker-entrypoint.sh
+      - .github/workflows/build.yml
   pull_request:
+    paths:
+      - Dockerfile
+      - docker-entrypoint.sh
+      - .github/workflows/build.yml
     branches:
       - main
     types:
@@ -75,7 +83,7 @@ jobs:
           IMAGE_NAME: ${{ steps.semver.outputs.IMAGE_NAME }}
         run: |
           echo "# Runner Image Details" >> $GITHUB_STEP_SUMMARY
-          echo "**Image Name**: `${{ env.IMAGE_NAME }}`"
-          echo "**Tags**: `${{ env.SEMVER_VERSION }}`, `dev`"
-          echo "**Fully Qualified Image Name**: `${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}`"
+          echo "**Image Name**: `${{ env.IMAGE_NAME }}`" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags**: `${{ env.SEMVER_VERSION }}`, `dev`" >> $GITHUB_STEP_SUMMARY
+          echo "**Fully Qualified Image Name**: `${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}`" >> $GITHUB_STEP_SUMMARY
 
