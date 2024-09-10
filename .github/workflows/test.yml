@@ -1,7 +1,6 @@
 name: Test Communication with Self Hosted K3d Cluster
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
