@@ -48,8 +48,8 @@ jobs:
           export IMAGE_NAME="${{ vars.DOCKER_USERNAME }}/runner"
 
           # Export the version and the image name
-          export "SEMVER_VERSION=$SEMVER_VERSION" >> $GITHUB_OUTPUT
-          export "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_OUTPUT
+          echo "SEMVER_VERSION=$SEMVER_VERSION" >> "$GITHUB_OUTPUT"
+          echo "IMAGE_NAME=$IMAGE_NAME" >> "$GITHUB_OUTPUT"
 
       - name: Build the Runner Docker Image
         env:
