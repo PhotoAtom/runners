@@ -9,8 +9,8 @@ jobs:
     name: Testing Communication with Self Hosted K3d Cluster
     runs-on: [self-hosted, linux, photoatom]
     env:
-      KUBECONFIG: '~/.kube/config'
-      KUBECONFIG_FOLDER: '~/.kube'
+      KUBECONFIG: '/tmp/k3d/config.yml'
+      KUBECONFIG_FOLDER: '/tmp/k3d'
     steps:
       - name: Create and save KubeConfig file
         run: |
