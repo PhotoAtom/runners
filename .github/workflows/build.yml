@@ -1,0 +1,81 @@
+name: Build and store GitHub Actions Runner Image
+
+on:
+  push:
+    branches:
+      - feature/**
+      - bug/**
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - closed
+
+jobs:
+  build_runner_image_dev:
+    name: Development build of the Runner Image
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checking out the repository
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332
+
+      - name: Logging into Docker Hub
+        uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567
+        with:
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
+
+      - id: semver
+        name: Generate Semantic Versioned Tag and Name for the Docker Image
+        run: |
+
+          # Major version is stored in the GitHub Organization Variables
+          MAJOR_VERSION="${{ vars.MAIN_RELEASE }}"
+
+          # Minor version is fetched from the issue number this branch is created for.
+          MINOR_VERSION=$(echo "${{ github.ref_name }}" | cut -d/ -f2)
+
+          # Patch version is the run number of the pipeline
+          PATCH_VERSION=$(echo "${{ github.run_number }}")
+
+          # Form the final development version
+          SEMVER_VERSION="$MAJOR_VERSION.$MINOR_VERSION.$PATCH_VERSION-DEV"
+
+          # Form the image name
+          IMAGE_NAME="${{ vars.DOCKER_USERNAME }}/runner"
+
+          # Export the version and the image name
+          export "SEMVER_VERSION=$SEMVER_VERSION" >> $GITHUB_OUTPUT
+          export "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Build the Runner Docker Image
+        env:
+          SEMVER_VERSION: ${{ steps.semver.outputs.SEMVER_VERSION }}
+          IMAGE_NAME: ${{ steps.semver.outputs.IMAGE_NAME }}
+        run: |
+
+          # Build the docker image
+          docker build -t "${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}" .
+
+          # Add additional tags to the image
+          docker tag "${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}" "${{ env.IMAGE_NAME }}:dev"
+
+      - name: Push the Runner image to Docker Hub
+        env:
+          SEMVER_VERSION: ${{ steps.semver.outputs.SEMVER_VERSION }}
+          IMAGE_NAME: ${{ steps.semver.outputs.IMAGE_NAME }}
+        run: docker pull ${{ env.IMAGE_NAME }} --all-tags
+
+      - name: Output Runner Image Details as a Job Summary
+        env:
+          SEMVER_VERSION: ${{ steps.semver.outputs.SEMVER_VERSION }}
+          IMAGE_NAME: ${{ steps.semver.outputs.IMAGE_NAME }}
+        run: |
+          echo "# Runner Image Details" >> $GITHUB_STEP_SUMMARY
+          echo "**Image Name**: `${{ env.IMAGE_NAME }}`"
+          echo "**Tags**: `${{ env.SEMVER_VERSION }}`, `dev`"
+          echo "**Fully Qualified Image Name**: `${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}`"
+
