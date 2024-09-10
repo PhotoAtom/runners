@@ -7,7 +7,7 @@ on:
 jobs:
   test_communication:
     name: Testing Communication with Self Hosted K3d Cluster
-    runs-on: photoatom
+    runs-on: [self-hosted, linux, photoatom]
     env:
       KUBECONFIG: '~/.kube/config'
       KUBECONFIG_FOLDER: '~/.kube'
