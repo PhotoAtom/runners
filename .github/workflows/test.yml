@@ -24,3 +24,6 @@ jobs:
         run: |
           kubectl get ns
 
+      - name: Check if OpenTofu is installed or not
+        run: tofu --version
+
