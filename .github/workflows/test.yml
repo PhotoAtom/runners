@@ -27,3 +27,7 @@ jobs:
       - name: Check if OpenTofu is installed or not
         run: tofu --version
 
+      - name: Check for packages installed
+        run: |
+          kubectl cnpg version
+
