@@ -29,5 +29,5 @@ jobs:
 
       - name: Check for packages installed
         run: |
-          kubectl cnpg version
+          echo "KubeCTL CNPG Plugin: $(kubectl cnpg version)"
 
