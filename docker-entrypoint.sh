@@ -4,6 +4,9 @@
 GH_ORG=$GH_ORG
 GH_TOKEN=$GH_TOKEN
 
+# Exporting path for MinIO CLI
+export PATH=$PATH:/home/docker/minio-binaries/
+
 # Generate a name for the runner.
 RUNNER_SUFFIX=$(cat /dev/urandom | tr -dc 'a-z0-9' | fold -w 5 | head -n 1)
 RUNNER_NAME="photoatom-runner-${RUNNER_SUFFIX}"

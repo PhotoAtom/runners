@@ -60,8 +60,7 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
 RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
   --create-dirs \
   -o /home/docker/minio-binaries/mc && \
-  chmod +x /home/docker/minio-binaries/mc && \
-  export PATH=$PATH:/home/docker/minio-binaries/
+  chmod +x /home/docker/minio-binaries/mc
 
 # Download the runner package and extract it
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner && \
