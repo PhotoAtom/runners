@@ -84,7 +84,7 @@ jobs:
         run: |
           echo "# Runner Image Details" >> $GITHUB_STEP_SUMMARY
           echo '**Image Name**: `${{ env.IMAGE_NAME }}`' >> $GITHUB_STEP_SUMMARY
-          echo '**Tags**: `${{ env.SEMVER_VERSION }}`, `latest`' >> $GITHUB_STEP_SUMMARY
+          echo '**Tags**: `${{ env.SEMVER_VERSION }}`, `dev`' >> $GITHUB_STEP_SUMMARY
           echo '**Fully Qualified Image Name**: `${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}`' >> $GITHUB_STEP_SUMMARY
 
   build_runner_image_stage:
@@ -149,7 +149,7 @@ jobs:
         run: |
           echo "# Runner Image Details" >> $GITHUB_STEP_SUMMARY
           echo '**Image Name**: `${{ env.IMAGE_NAME }}`' >> $GITHUB_STEP_SUMMARY
-          echo '**Tags**: `${{ env.SEMVER_VERSION }}`, `latest`' >> $GITHUB_STEP_SUMMARY
+          echo '**Tags**: `${{ env.SEMVER_VERSION }}`, `staging`' >> $GITHUB_STEP_SUMMARY
           echo '**Fully Qualified Image Name**: `${{ env.IMAGE_NAME }}:${{ env.SEMVER_VERSION }}`' >> $GITHUB_STEP_SUMMARY
 
   build_runner_image:
