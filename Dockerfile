@@ -56,6 +56,13 @@ RUN install -m 0755 -d /etc/apt/keyrings && \
   apt-get update && \
   apt-get install -y tofu
 
+# Installing MinIO CLI
+RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
+  --create-dirs \
+  -o /home/docker/minio-binaries/mc && \
+  chmod +x /home/docker/minio-binaries/mc && \
+  export PATH=$PATH:/home/docker/minio-binaries/
+
 # Download the runner package and extract it
 RUN cd /home/docker && mkdir actions-runner && cd actions-runner && \
   curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
