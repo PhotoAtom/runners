@@ -40,9 +40,8 @@ RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | gpg --d
   apt-get install -y kubectl
 
 # Installing the CNPG Plugin
-RUN curl -sSfL \
-  https://github.com/cloudnative-pg/cloudnative-pg/raw/main/hack/install-cnpg-plugin.sh | \
-  sh -s -- -b /usr/local/bin
+RUN wget https://github.com/cloudnative-pg/cloudnative-pg/releases/download/v1.22.1/kubectl-cnpg_1.22.2_linux_x86_64.deb && \
+  dpkg -i kubectl-cnpg_1.22.2_linux_x86_64.deb
 
 # Installing OpenTofu
 RUN install -m 0755 -d /etc/apt/keyrings && \
