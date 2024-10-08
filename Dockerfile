@@ -42,7 +42,7 @@ RUN curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | gpg --d
 # Installing the CNPG Plugin
 RUN curl -sSfL \
   https://github.com/cloudnative-pg/cloudnative-pg/raw/main/hack/install-cnpg-plugin.sh | \
-  sudo sh -s -- -b /usr/local/bin
+  sh -s -- -b /usr/local/bin
 
 # Installing OpenTofu
 RUN install -m 0755 -d /etc/apt/keyrings && \
